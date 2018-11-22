@@ -32,29 +32,19 @@ class Hobbies(forms.ModelForm):
 
         model = Hobby_details
 
-        fields = ('hobby','hobby_choices','hobby_name')
+        fields = ('hobby_choices','hobby_name',)
 
     def clean_hobby_choices(self):
 
         name=self.cleaned_data.get('hobby_choices')
 
-        print(name)
-
         if name == "None":
-
-            print("kjsdbkjsdbk")
 
             raise forms.ValidationError("You must select the value")
 
         else:
 
             return name
-
-    def clean_hobby_name(self):
-
-        print("hello name")
-
-
 
 #---------------------------------------------CourseForm-----------------------------------------------------
 class CourseForm(forms.ModelForm):
@@ -139,4 +129,3 @@ class collegeForm(forms.ModelForm):
         model = College_detail
 
         fields = ('college_name',)
-

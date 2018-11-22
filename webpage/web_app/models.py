@@ -4,7 +4,7 @@ from multiselectfield import MultiSelectField
 import datetime
 from django.template.defaultfilters import slugify
 from django.urls import reverse
-
+from froala_editor.fields import FroalaField
 
 
 #-----------------------------------Student Detail------------------------------------------------------------------
@@ -177,6 +177,8 @@ class Streams(models.Model):
 
     Stream = models.CharField(max_length = 122)
 
+
+
 #-----------------------------------College Detail---------------------------------------------------
 
 class College_detail(models.Model):
@@ -207,4 +209,5 @@ class College_detail(models.Model):
 
     def get_absolute_url(self):
 
-        return (f'/{self.slug}/')
+        # return (f'/{self.slug}/')
+        return "helo"

@@ -53,18 +53,22 @@ def user_logout(requets):
 
 def registration_page(request):
     registered = False
-    print(request.POST)
+    #print(request.POST)
     if request.method == "POST":
 
         signup_detail = SignUpForm(data=request.POST)
         student_detail = Register(data=request.POST)
         hobby = Hobbies(data = request.POST)
 
+        print(request.POST.get('password'), signup_detail,signup_detail.errors)
+
         if signup_detail.is_valid() and student_detail.is_valid() and hobby.is_valid():
+
+            print("welcome")
             user = signup_detail.save()
             user.set_password(user.password)
             user.save()
-            print("user", user)
+
             student = student_detail.save(commit=False)
             student.user = user
 
@@ -74,7 +78,7 @@ def registration_page(request):
             student.save()
 
             # hob = hobby.save(commit=False)
-            hobby.student = user
+            hobby.student_id = 1
             hobby.save()
 
             try:
@@ -90,35 +94,55 @@ def registration_page(request):
                 print("something")
 
             registered = True
+
+            return HttpResponseRedirect(reverse('Login_page'))
         else:
+            
+            print("not coming")
+            
             print(SignUpForm.errors,Register.errors)
     else:
+        
         signup_detail = SignUpForm()
+        
         student_detail = Register()
+        
         hobby = Hobbies()
+    
     return render(request,"registration.html",{'signup_detail':signup_detail,'student_detail':student_detail,"registerd":registered,'hobbies':hobby,'h':True})
-
-
 
 def user_login(request):
 
     if request.method=='POST':
-        username= request.POST.get('username')
-        password= request.POST.get('password')
-        user=authenticate(username=username,password=password)
+       
+        username = request.POST.get('username')
+       
+        password = request.POST.get('password')
+       
+        user = authenticate(username=username,password=password)
+       
         if user:
+       
             if user.is_active:
+       
                 login(request,user)
+       
                 print(request.user)
+       
                 return HttpResponseRedirect(reverse('index'))
+       
             else:
+       
                 return HttpResponse("Account not activated")
-
         else:
+
             print("someone tried to login but login failure")
+
             print("Username: {} Password: {} ".format(username,password))
+
             return HttpResponse("Invalid Login details")
     else:
+        
         return render(request,"login.html",{})
 
 
@@ -392,8 +416,6 @@ def managecourse(request,pk=None):
 
             l = Course_page.objects.filter(college_id=pk,**d)
 
-
-
         else:
 
             course_model = l   
@@ -518,8 +540,6 @@ def manage_college(request):
             print(i.pk)
 
             ids = i.pk
-
-        print(ids)
             
         return HttpResponseRedirect(reverse('manage_course',args=(ids,)))
     
@@ -548,6 +568,5 @@ def add_college(request):
             college_add.save()
 
             return HttpResponseRedirect(reverse('college'))
-
 
     return render(request,'add_college.html',{'college_add':college_add})

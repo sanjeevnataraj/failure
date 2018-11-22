@@ -110,17 +110,20 @@
       });    
     });
 
-//  $("#id_password").change(function () {
+ $("#id_password").change(function () {
 $('#id_password').keyup(function () {
-      var password = $(this).val().length
 
+      var password = $(this).val().length
+  
       if (password<=5)
       {
         $('#id_password').css('border-color', 'red');
         $('#pass').text("Password must be more than 5 character")
       }
 
-      else{
+      else
+      {
+      
         $('#id_password').css('border-color', 'white');
         $('#pass').text("")
         
@@ -129,7 +132,10 @@ $('#id_password').keyup(function () {
       console.log(password)
 
     });
+
     });
+
+});
     </script>
 {% endblock %}
 <div class="jumbotron">
@@ -151,16 +157,17 @@ $('#id_password').keyup(function () {
   <p id="user"></p>
   <p><font color="red">{{ form.name.errors }}</font></p>
   <br>
-  <label forname="password"> Password</label>
-  {{ signup_detail.password }}
-  <p id="pass"></p>
-  <br>
   <label forname="Emailid"> Email_id </label>
   {{ signup_detail.email }}
   <p><font color="red">{{ form.email.errors }}</font></p>
   <br>
+  <label forname="password"> Password</label>
+  {{ signup_detail.password }}
+  <p id="pass"></p>
+  <br>
   <br>
 {% endif %}
+
   <label forname="phonenumber"> PhoneNumber</label>
   {{ student_detail.PhoneNumber }}
   <br><br>
@@ -177,13 +184,11 @@ $('#id_password').keyup(function () {
   <label forname="Description">Description</label>
   {{ student_detail.Description }}
 
-<br>
-<br>
+<br><br>
  <div class="col-xs-0">
             <div class="col-md-12" >
                 <div id="field">
                 <div id="field0">
-
 <!-- choice field-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="action_id">Hobby_choices</label>
@@ -210,11 +215,8 @@ $('#id_password').keyup(function () {
   </div>
 
 </div>
-
 <br><br>
-
 </div>
-<!-- Button -->
 <div class="form-group">
   <div class="col-md-4">
     <button id="add-more" name="add-more" class="btn btn-primary">Add More</button>

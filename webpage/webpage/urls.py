@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 from web_app.sitemaps import StaticViewSitemap,SnippetSitemap,CollegeSitemap
-
+from web_app import middleware
 sitemaps = {
     # 'static': StaticViewSitemap,
     'snippet':SnippetSitemap,
@@ -17,6 +17,8 @@ sitemaps = {
 
 
 urlpatterns = [
+
+    url(r'^django-session-idle-timeout/',middleware.SessionIdleTimeout,name="s"),
 
     url(r'^insert$', views.insert, name="insert"),
     
